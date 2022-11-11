@@ -20,7 +20,7 @@ export default function Home(props) {
             source={require("../../assets/onboarding.png")}
             style={styles.imageLogin}
           />
-          <Text style={styles.welcome}>Get things done with TODo</Text>
+          <Text style={styles.welcome}>Gets things done with TODo</Text>
           <View style={{ width: "70%" }}>
             <Text style={styles.text}>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum
