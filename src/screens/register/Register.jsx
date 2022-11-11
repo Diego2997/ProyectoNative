@@ -31,7 +31,10 @@ export default function Register(props) {
           <ButtonReu text="Register" />
           <Text style={styles.text}>
             Already have an account?
-            <Text style={styles.textLogin}> Sign In</Text>{" "}
+            <Text style={styles.textLogin} onPress={goToPage}>
+              {" "}
+              Sign In
+            </Text>{" "}
           </Text>
         </View>
       </View>

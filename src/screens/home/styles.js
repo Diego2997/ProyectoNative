@@ -15,13 +15,9 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
   },
   image: {
-    marginHorizontal: -120,
-    marginVertical: -100,
+    marginHorizontal: -90,
+    marginVertical: -90,
     position: "relative",
-  },
-  imageLogin: {
-    width: 120,
-    height: 150,
   },
   containerText: {
     flexDirection: "column",
@@ -33,23 +29,45 @@ export const styles = StyleSheet.create({
     fontWeight: "800",
     fontSize: 20,
     marginBottom: 20,
+    marginTop: 40,
+  },
+  subtitle: {
+    marginTop: 10,
+    marginBottom: 20,
+  },
+
+  containerButton: {
+    flexDirection: "column",
+    marginTop: 50,
+    fontSize: 30,
   },
 
   text: {
-    marginTop: 20,
     textAlign: "center",
-    marginBottom: 10,
+    marginBottom: 100,
+    overflow: "hidden",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
-  containerInput: {
-    flexDirection: "column",
+
+  imageLogin: {
+    width: 150,
+    height: 150,
+    marginTop: 50,
+  },
+  button: {
+    backgroundColor: "#50c2c9",
+    height: 65,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 15,
+    borderRadius: 25,
+    width: "90%",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
-  textLogin: {
-    color: "#50C2C9",
-    marginBottom: 20,
-    marginTop: 50,
+  textButton: {
+    color: "white",
+    fontSize: 20,
     fontWeight: "500",
   },
 });

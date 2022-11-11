@@ -1,10 +1,15 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
-import ButtonReu from "../../components/button/ButtonReu";
 import Input from "../../components/input/Input";
 import { styles } from "./styles";
+import ButtonReu from "../../components/button/ButtonReu";
 
 export default function Login(props) {
+  const { navigation } = props;
+
+  const goToPage = () => {
+    navigation.navigate("Register");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.container2}>
@@ -27,7 +32,10 @@ export default function Login(props) {
         <ButtonReu text="Log In" />
         <Text style={styles.text}>
           Don't have an account?
-          <Text style={styles.textLogin}> Sign Up</Text>{" "}
+          <Text style={styles.textLogin} onPress={goToPage}>
+            {" "}
+            Sign Up
+          </Text>{" "}
         </Text>
       </View>
     </View>
