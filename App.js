@@ -6,6 +6,7 @@ import Register from "./src/screens/register/Register";
 import { StatusBar } from "expo-status-bar";
 import Login from "./src/screens/login/Login";
 import Home from "./src/screens/home/Home";
+import FlashMessage from "react-native-flash-message";
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,7 @@ function App() {
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
+      <FlashMessage position="top" />
     </NavigationContainer>
   );
 }

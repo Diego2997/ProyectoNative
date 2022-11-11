@@ -12,31 +12,29 @@ export default function Register(props) {
   };
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.container2}>
-          <Image
-            source={require("../../assets/elipse.png")}
-            style={styles.image}
-          />
-          <View style={styles.containerText}>
-            <Text style={styles.welcome}>Welcome OnBoard!</Text>
-            <Text>Let's help you meet up your tasks</Text>
-          </View>
-          <View style={styles.containerInput}>
-            <Input placeholder="Enter your full name" />
-            <Input placeholder="Enter your e-mail" />
-            <Input placeholder="Enter password" />
-            <Input placeholder="Confirm password" />
-          </View>
-          <ButtonReu text="Register" />
-          <Text style={styles.text}>
-            Already have an account?
-            <Text style={styles.textLogin} onPress={goToPage}>
-              {" "}
-              Sign In
-            </Text>{" "}
-          </Text>
+      <View style={styles.container2}>
+        <Image
+          source={require("../../assets/elipse.png")}
+          style={styles.image}
+        />
+        <View style={styles.containerText}>
+          <Text style={styles.welcome}>Welcome OnBoard!</Text>
+          <Text>Let's help you meet up your tasks</Text>
         </View>
+        <View style={styles.containerInput}>
+          <Input placeholder="Enter your full name" />
+          <Input placeholder="Enter your e-mail" />
+          <Input placeholder="Enter password" />
+          <Input placeholder="Confirm password" />
+        </View>
+        <ButtonReu text="Register" />
+        <Text style={styles.text}>
+          Already have an account?
+          <Text style={styles.textLogin} onPress={goToPage}>
+            {" "}
+            Sign In
+          </Text>{" "}
+        </Text>
       </View>
     </>
   );

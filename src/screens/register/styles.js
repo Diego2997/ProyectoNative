@@ -15,8 +15,8 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
   },
   image: {
-    marginHorizontal: -90,
-    marginVertical: -90,
+    marginHorizontal: -120,
+    marginVertical: -100,
     position: "relative",
   },
   containerText: {

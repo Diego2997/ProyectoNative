@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   image: {
     marginHorizontal: -120,
-    marginVertical: -100,
+    marginVertical: -90,
     position: "relative",
   },
   imageLogin: {
