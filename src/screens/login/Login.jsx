@@ -3,14 +3,47 @@ import React from "react";
 import Input from "../../components/input/Input";
 import { styles } from "./styles";
 import ButtonReu from "../../components/button/ButtonReu";
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
+import { useState } from "react";
+//import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import axios from "axios";
 
 export default function Login(props) {
   const { navigation } = props;
 
-  const goToPage = () => {
-    navigation.navigate("Register");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmail = (text) => {
+    setEmail(text);
   };
+  const handlePassword = (text) => {
+    setPassword(text);
+  };
+
+  const logIn = () => {
+    axios
+      .post(
+        `http://localhost:3001/user/login`,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) =>
+        showMessage({
+          message: res,
+        })
+      )
+      .catch((error) => console.log(error));
+  };
+
   return (
     <View style={styles.container2}>
       <Image source={require("../../assets/elipse.png")} style={styles.image} />
@@ -22,8 +55,16 @@ export default function Login(props) {
         />
       </View>
       <View style={styles.containerInput}>
-        <Input placeholder="Enter your e-mail" />
-        <Input placeholder="Enter password" />
+        <Input
+          value={email}
+          placeholder="Enter your e-mail"
+          function={handleEmail}
+        />
+        <Input
+          value={password}
+          placeholder="Enter password"
+          function={handlePassword}
+        />
         <TouchableOpacity
           onPress={() => {
             showMessage({
@@ -39,10 +80,13 @@ export default function Login(props) {
           <Text style={styles.textLogin}>Forget Password</Text>
         </TouchableOpacity>
       </View>
-      <ButtonReu text="Log In" />
+      <ButtonReu text="Log In" function={logIn} />
       <Text style={styles.text}>
         Don't have an account?
-        <Text style={styles.textLogin} onPress={goToPage}>
+        <Text
+          style={styles.textLogin}
+          onPress={() => navigation.navigate("Register")}
+        >
           {" "}
           Sign Up
         </Text>{" "}
