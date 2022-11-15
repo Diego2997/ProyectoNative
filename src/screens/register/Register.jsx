@@ -45,51 +45,26 @@ export default function Register(props) {
     setPassordConfirm(text);
   };
 
-  const submit = () => {
+  const submit = async () => {
     if (validateName && validateEmail && password === passordConfirm) {
-      console.log("empezando a enviar");
-      axios
-        .post(
-          `http://localhost:3001/user/register`,
-          {
-            name,
-            email,
-            password,
-            age: 20,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((response) => {
-          console.log(response);
-        })
-        .then(async (data) => {
-          try {
-            await AsyncStorage.setItem("token", data.token);
-            navigation.navigate("Home");
-          } catch (error) {
-            showMessage({
-              message: "Ocurrio un error",
-            });
-          }
-        })
-        .catch((error) => {
-          console.log(error.response);
-        });
-      console.log("enviado");
+      const request = await axios.post("http://localhost:3001/user/register", {
+        email,
+        password,
+        name,
+      });
+      const { token } = request.data;
+      await AsyncStorage.setItem("token", token);
       showMessage({
-        message: "datos enviados.",
-        type: "warning",
+        message: "Te has registrado correctamente",
+        type: "info",
         duration: 2500,
         backgroundColor: "#50C2C9",
         position: "bottom",
       });
+      navigation.navigate("Home");
     } else {
       showMessage({
-        message: "Error al registrarse.",
+        message: "Hubo un error al registrarse",
         type: "warning",
         duration: 2500,
         backgroundColor: "#50C2C9",

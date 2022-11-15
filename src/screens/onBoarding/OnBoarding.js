@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { styles } from "./styles";
 
-export default function Home(props) {
+export default function OnBoarding(props) {
   const { navigation } = props;
 
   const goToPage = () => {

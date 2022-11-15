@@ -5,7 +5,7 @@ import { styles } from "./styles";
 import ButtonReu from "../../components/button/ButtonReu";
 import { showMessage } from "react-native-flash-message";
 import { useState } from "react";
-//import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import axios from "axios";
 
@@ -22,26 +22,32 @@ export default function Login(props) {
     setPassword(text);
   };
 
-  const logIn = () => {
-    axios
-      .post(
-        `http://localhost:3001/user/login`,
-        {
-          email: email,
-          password: password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) =>
-        showMessage({
-          message: res,
-        })
-      )
-      .catch((error) => console.log(error));
+  const submit = async () => {
+    try {
+      const request = await axios.post("http://localhost:3001/user/login", {
+        email,
+        password,
+      });
+      const { token } = request.data;
+      await AsyncStorage.setItem("token", token);
+      showMessage({
+        message: "Te has logueado correctamente",
+        type: "info",
+        duration: 2500,
+        backgroundColor: "#50C2C9",
+        position: "bottom",
+      });
+      navigation.navigate("Home");
+    } catch (error) {
+      console.log(error);
+      showMessage({
+        message: "Hubo un error al registrarse",
+        type: "warning",
+        duration: 2500,
+        backgroundColor: "#50C2C9",
+        position: "bottom",
+      });
+    }
   };
 
   return (
@@ -80,7 +86,7 @@ export default function Login(props) {
           <Text style={styles.textLogin}>Forget Password</Text>
         </TouchableOpacity>
       </View>
-      <ButtonReu text="Log In" function={logIn} />
+      <ButtonReu text="Log In" function={submit} />
       <Text style={styles.text}>
         Don't have an account?
         <Text

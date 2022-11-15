@@ -5,8 +5,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Register from "./src/screens/register/Register";
 import { StatusBar } from "expo-status-bar";
 import Login from "./src/screens/login/Login";
-import Home from "./src/screens/home/Home";
+
 import FlashMessage from "react-native-flash-message";
+import OnBoarding from "./src/screens/onBoarding/OnBoarding";
 
 const Stack = createStackNavigator();
 
@@ -26,8 +27,8 @@ function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Home"
-          component={Home}
+          name="OnBoarding"
+          component={OnBoarding}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
