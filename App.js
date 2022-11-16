@@ -1,6 +1,3 @@
-if (__DEV__) {
-  import("./ReactotronConfig").then(() => console.log("Reactotron Configured"));
-}
 import "react-native-gesture-handler";
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,12 +8,10 @@ import Login from "./src/screens/login/Login";
 import Home from "./src/screens/home/Home";
 import FlashMessage from "react-native-flash-message";
 import OnBoarding from "./src/screens/onBoarding/OnBoarding";
-import Reactotron from "reactotron-react-native";
 
 const Stack = createStackNavigator();
 
 function App() {
-  Reactotron.log("hola mundo");
   return (
     <NavigationContainer>
       <StatusBar style="default" />

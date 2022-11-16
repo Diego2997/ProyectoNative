@@ -47,11 +47,14 @@ export default function Register(props) {
 
   const submit = async () => {
     if (validateName && validateEmail && password === passordConfirm) {
-      const request = await axios.post("http://localhost:3001/user/register", {
-        email,
-        password,
-        name,
-      });
+      const request = await axios.post(
+        "https://api-nodejs-todolist.herokuapp.com/user/register",
+        {
+          email,
+          password,
+          name,
+        }
+      );
 
       const { token } = request.data;
       await AsyncStorage.setItem("token", token);
@@ -62,7 +65,10 @@ export default function Register(props) {
         backgroundColor: "#50C2C9",
         position: "bottom",
       });
-
+      setName("");
+      setEmail("");
+      setPassword("");
+      setPassordConfirm("");
       navigation.navigate("Home");
     } else {
       showMessage({
@@ -115,6 +121,7 @@ export default function Register(props) {
           <Input
             placeholder="Enter password"
             function={handlePassword}
+            secureTextEntry={true}
             onFocus={() => {
               showMessage({
                 message: "Debe ingresar una password segura",
@@ -128,6 +135,7 @@ export default function Register(props) {
           <Input
             placeholder="Confirm password"
             function={handleConfirmPassword}
+            secureTextEntry={true}
             onFocus={() => {
               showMessage({
                 message: "Las contraseñas deben coincidir",

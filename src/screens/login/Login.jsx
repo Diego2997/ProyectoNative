@@ -9,7 +9,7 @@ import React from "react";
 import Input from "../../components/input/Input";
 import { styles } from "./styles";
 import ButtonReu from "../../components/button/ButtonReu";
-import { showMessage } from "react-native-flash-message";
+import FlashMessage, { showMessage } from "react-native-flash-message";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -32,12 +32,16 @@ export default function Login(props) {
   const submit = async () => {
     try {
       setIsloading(true);
-      const request = await axios.post("http://localhost:3001/user/login", {
-        email,
-        password,
-      });
+      const request = await axios.post(
+        "https://api-nodejs-todolist.herokuapp.com/user/login",
+        {
+          email,
+          password,
+        }
+      );
+      const { name } = request.data.user;
       const { token } = request.data;
-      console.log(request.data);
+      await AsyncStorage.setItem("name", name);
       await AsyncStorage.setItem("token", token);
       showMessage({
         message: "Te has logueado correctamente",
@@ -47,10 +51,9 @@ export default function Login(props) {
         position: "bottom",
       });
       navigation.navigate("Home");
-      setIsloading(false);
     } catch (error) {
       showMessage({
-        message: "Hubo un error al registrarse",
+        message: "Hubo un error al loguearse",
         type: "warning",
         duration: 2500,
         backgroundColor: "#50C2C9",
@@ -80,6 +83,7 @@ export default function Login(props) {
           value={password}
           placeholder="Enter password"
           function={handlePassword}
+          secureTextEntry={true}
         />
         <TouchableOpacity
           onPress={() => {

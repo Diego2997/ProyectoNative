@@ -9,6 +9,7 @@ export default function Input(props) {
       style={styles.input}
       onChangeText={props.function}
       onFocus={props.onFocus}
+      secureTextEntry={props.secureTextEntry ? true : null}
     />
   );
 }
