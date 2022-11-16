@@ -1,4 +1,10 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
 import Input from "../../components/input/Input";
 import { styles } from "./styles";
@@ -14,6 +20,7 @@ export default function Login(props) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isloading, setIsloading] = useState(false);
 
   const handleEmail = (text) => {
     setEmail(text);
@@ -24,11 +31,13 @@ export default function Login(props) {
 
   const submit = async () => {
     try {
+      setIsloading(true);
       const request = await axios.post("http://localhost:3001/user/login", {
         email,
         password,
       });
       const { token } = request.data;
+      console.log(request.data);
       await AsyncStorage.setItem("token", token);
       showMessage({
         message: "Te has logueado correctamente",
@@ -38,8 +47,8 @@ export default function Login(props) {
         position: "bottom",
       });
       navigation.navigate("Home");
+      setIsloading(false);
     } catch (error) {
-      console.log(error);
       showMessage({
         message: "Hubo un error al registrarse",
         type: "warning",
@@ -48,6 +57,7 @@ export default function Login(props) {
         position: "bottom",
       });
     }
+    setIsloading(false);
   };
 
   return (
@@ -86,7 +96,11 @@ export default function Login(props) {
           <Text style={styles.textLogin}>Forget Password</Text>
         </TouchableOpacity>
       </View>
-      <ButtonReu text="Log In" function={submit} />
+      {isloading ? (
+        <ActivityIndicator size="large" color="#50C2C9" />
+      ) : (
+        <ButtonReu text="Log In" function={submit} />
+      )}
       <Text style={styles.text}>
         Don't have an account?
         <Text

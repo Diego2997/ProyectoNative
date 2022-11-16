@@ -52,6 +52,7 @@ export default function Register(props) {
         password,
         name,
       });
+
       const { token } = request.data;
       await AsyncStorage.setItem("token", token);
       showMessage({
@@ -61,6 +62,7 @@ export default function Register(props) {
         backgroundColor: "#50C2C9",
         position: "bottom",
       });
+
       navigation.navigate("Home");
     } else {
       showMessage({
