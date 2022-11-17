@@ -8,6 +8,7 @@ import Login from "./src/screens/login/Login";
 import Home from "./src/screens/home/Home";
 import FlashMessage from "react-native-flash-message";
 import OnBoarding from "./src/screens/onBoarding/OnBoarding";
+import createNewTask from "./src/screens/createNewTask/createNewTask";
 
 const Stack = createStackNavigator();
 
@@ -17,13 +18,13 @@ function App() {
       <StatusBar style="default" />
       <Stack.Navigator initialRouteName="OnBoarding">
         <Stack.Screen
-          name="Register"
-          component={Register}
+          name="Login"
+          component={Login}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Login"
-          component={Login}
+          name="Register"
+          component={Register}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -34,6 +35,11 @@ function App() {
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="createNewTask"
+          component={createNewTask}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

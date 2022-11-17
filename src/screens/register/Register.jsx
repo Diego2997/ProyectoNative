@@ -82,82 +82,84 @@ export default function Register(props) {
   };
   return (
     <>
-      <View style={styles.container2}>
-        <Image
-          source={require("../../assets/elipse.png")}
-          style={styles.image}
-        />
-        <View style={styles.containerText}>
-          <Text style={styles.welcome}>Welcome OnBoard!</Text>
-          <Text>Let's help you meet up your tasks</Text>
+      <View style={{ backgroundColor: "#EDEDEE" }}>
+        <View style={styles.container2}>
+          <Image
+            source={require("../../assets/elipse.png")}
+            style={styles.image}
+          />
+          <View style={styles.containerText}>
+            <Text style={styles.welcome}>Welcome OnBoard!</Text>
+            <Text>Let's help you meet up your tasks</Text>
+          </View>
+          <View style={styles.containerInput}>
+            <Input
+              placeholder="Enter your full name"
+              function={validateNam}
+              onFocus={() => {
+                showMessage({
+                  message: "Debe ingresar un nombre de más de 7 caracteres",
+                  type: "warning",
+                  duration: 2500,
+                  backgroundColor: "#50C2C9",
+                  position: "top",
+                });
+              }}
+            />
+            <Input
+              placeholder="Enter your e-mail"
+              function={validateMail}
+              onFocus={() => {
+                showMessage({
+                  message: "Debe ingresar una direccion de correo valida",
+                  type: "warning",
+                  duration: 2500,
+                  backgroundColor: "#50C2C9",
+                  position: "top",
+                });
+              }}
+            />
+            <Input
+              placeholder="Enter password"
+              function={handlePassword}
+              secureTextEntry={true}
+              onFocus={() => {
+                showMessage({
+                  message: "Debe ingresar una password segura",
+                  type: "warning",
+                  duration: 2500,
+                  backgroundColor: "#50C2C9",
+                  position: "top",
+                });
+              }}
+            />
+            <Input
+              placeholder="Confirm password"
+              function={handleConfirmPassword}
+              secureTextEntry={true}
+              onFocus={() => {
+                showMessage({
+                  message: "Las contraseñas deben coincidir",
+                  type: "warning",
+                  duration: 2500,
+                  backgroundColor: "#50C2C9",
+                  position: "top",
+                });
+              }}
+            />
+          </View>
+          <ButtonReu text="Register" function={submit} />
+          <Text style={styles.text}>
+            Already have an account?
+            <Text
+              style={styles.textLogin}
+              onPress={() => navigation.navigate("Login")}
+            >
+              {" "}
+              Sign In
+            </Text>{" "}
+          </Text>
         </View>
-        <View style={styles.containerInput}>
-          <Input
-            placeholder="Enter your full name"
-            function={validateNam}
-            onFocus={() => {
-              showMessage({
-                message: "Debe ingresar un nombre de más de 7 caracteres",
-                type: "warning",
-                duration: 2500,
-                backgroundColor: "#50C2C9",
-                position: "bottom",
-              });
-            }}
-          />
-          <Input
-            placeholder="Enter your e-mail"
-            function={validateMail}
-            onFocus={() => {
-              showMessage({
-                message: "Debe ingresar una direccion de correo valida",
-                type: "warning",
-                duration: 2500,
-                backgroundColor: "#50C2C9",
-                position: "bottom",
-              });
-            }}
-          />
-          <Input
-            placeholder="Enter password"
-            function={handlePassword}
-            secureTextEntry={true}
-            onFocus={() => {
-              showMessage({
-                message: "Debe ingresar una password segura",
-                type: "warning",
-                duration: 2500,
-                backgroundColor: "#50C2C9",
-                position: "bottom",
-              });
-            }}
-          />
-          <Input
-            placeholder="Confirm password"
-            function={handleConfirmPassword}
-            secureTextEntry={true}
-            onFocus={() => {
-              showMessage({
-                message: "Las contraseñas deben coincidir",
-                type: "warning",
-                duration: 2500,
-                backgroundColor: "#50C2C9",
-                position: "bottom",
-              });
-            }}
-          />
-        </View>
-        <ButtonReu text="Register" function={submit} />
-        <Text style={styles.text}>
-          Already have an account?
-          <Text
-            style={styles.textLogin}
-            onPress={() => navigation.navigate("Login")}
-          >
-            {" "}
-            Sign In
-          </Text>{" "}
-        </Text>
       </View>
     </>
   );

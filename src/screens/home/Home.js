@@ -1,10 +1,11 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React from "react";
 import ButtonReu from "../../components/button/ButtonReu";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import axios from "axios";
+import { styles } from "./styles";
 
 export default function Home(props) {
   const [user, setUser] = useState(null);
@@ -25,6 +26,9 @@ export default function Home(props) {
   useEffect(() => {
     getToken();
   }, []);
+  const goToPage = () => {
+    navigation.navigate("createNewTask");
+  };
 
   const logout = async () => {
     try {
@@ -54,11 +58,17 @@ export default function Home(props) {
   };
 
   return (
-    <View>
-      <Text>{user}</Text>
-      <Text>Lista de tareas</Text>
-      <ButtonReu text="Create New Task" />
-      <ButtonReu text="Logout" function={logout} />
+    <View style={{ backgroundColor: "#EDEDEE" }}>
+      <View style={styles.container2}>
+        <Image
+          style={styles.image}
+          source={require("../../assets/elipse.png")}
+        />
+        <Text style={styles.saludo}>Welcome: {user}</Text>
+        <Text style={styles.text}>Lista de tareas</Text>
+        <ButtonReu text="Create New Task" function={goToPage} />
+        <ButtonReu text="Logout" function={logout} />
+      </View>
     </View>
   );
 }

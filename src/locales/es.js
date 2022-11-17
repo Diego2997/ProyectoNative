@@ -31,5 +31,6 @@ export default {
   createTask: {
     buttonCreateTask: "Create New Task",
     buttonReturn: "Return",
+    text: "Completed",
   },
 };

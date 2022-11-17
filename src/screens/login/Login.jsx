@@ -64,57 +64,62 @@ export default function Login(props) {
   };
 
   return (
-    <View style={styles.container2}>
-      <Image source={require("../../assets/elipse.png")} style={styles.image} />
-      <View style={styles.containerText}>
-        <Text style={styles.welcome}>Welcome Back!</Text>
+    <View style={{ backgroundColor: "#EDEDEE" }}>
+      <View style={styles.container2}>
         <Image
-          source={require("../../assets/login.png")}
-          style={styles.imageLogin}
+          source={require("../../assets/elipse.png")}
+          style={styles.image}
         />
+        <View style={styles.containerText}>
+          <Text style={styles.welcome}>Welcome Back!</Text>
+          <Image
+            source={require("../../assets/login.png")}
+            style={styles.imageLogin}
+          />
+        </View>
+        <View style={styles.containerInput}>
+          <Input
+            value={email}
+            placeholder="Enter your e-mail"
+            function={handleEmail}
+          />
+          <Input
+            value={password}
+            placeholder="Enter password"
+            function={handlePassword}
+            secureTextEntry={true}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              showMessage({
+                message:
+                  "Hemos enviado por email las instrucciones para reestablecer su contraseña.",
+                type: "info",
+                duration: 2500,
+                backgroundColor: "#50C2C9",
+                position: "bottom",
+              });
+            }}
+          >
+            <Text style={styles.textLogin}>Forget Password</Text>
+          </TouchableOpacity>
+        </View>
+        {isloading ? (
+          <ActivityIndicator size="large" color="#50C2C9" />
+        ) : (
+          <ButtonReu text="Log In" function={submit} />
+        )}
+        <Text style={styles.text}>
+          Don't have an account?
+          <Text
+            style={styles.textLogin}
+            onPress={() => navigation.navigate("Register")}
+          >
+            {" "}
+            Sign Up
+          </Text>{" "}
+        </Text>
       </View>
-      <View style={styles.containerInput}>
-        <Input
-          value={email}
-          placeholder="Enter your e-mail"
-          function={handleEmail}
-        />
-        <Input
-          value={password}
-          placeholder="Enter password"
-          function={handlePassword}
-          secureTextEntry={true}
-        />
-        <TouchableOpacity
-          onPress={() => {
-            showMessage({
-              message:
-                "Hemos enviado por email las instrucciones para reestablecer su contraseña.",
-              type: "info",
-              duration: 2500,
-              backgroundColor: "#50C2C9",
-              position: "bottom",
-            });
-          }}
-        >
-          <Text style={styles.textLogin}>Forget Password</Text>
-        </TouchableOpacity>
-      </View>
-      {isloading ? (
-        <ActivityIndicator size="large" color="#50C2C9" />
-      ) : (
-        <ButtonReu text="Log In" function={submit} />
-      )}
-      <Text style={styles.text}>
-        Don't have an account?
-        <Text
-          style={styles.textLogin}
-          onPress={() => navigation.navigate("Register")}
-        >
-          {" "}
-          Sign Up
-        </Text>{" "}
-      </Text>
     </View>
   );
 }
