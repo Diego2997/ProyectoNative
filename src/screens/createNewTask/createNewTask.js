@@ -5,10 +5,30 @@ import { styles } from "./styles";
 import Input from "../../components/input/Input";
 import { useState } from "react";
 import t from "../../services/translate";
+import reactotron from "reactotron-react-native";
 
-export default function createNewTask() {
+export default function createNewTask(props) {
+  console.log(props);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+  // const handleTask = (text) =>{
+
+  // }
+
+  const submit = async () => {
+    try {
+      const request = await axios.post(
+        "https://api-nodejs-todolist.herokuapp.com/task",
+        {
+          email,
+          password,
+        }
+      );
+    } catch (error) {
+      reactotron.log(error);
+    }
+  };
 
   return (
     <View style={{ backgroundColor: "#EDEDEE" }}>

@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, FlatList } from "react-native";
 import React from "react";
 import ButtonReu from "../../components/button/ButtonReu";
 import { useEffect, useState } from "react";
@@ -7,47 +7,53 @@ import FlashMessage, { showMessage } from "react-native-flash-message";
 import axios from "axios";
 import { styles } from "./styles";
 import t from "../../services/translate";
+import reactotron from "reactotron-react-native";
+
+const Item = ({ title }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
 
 export default function Home(props) {
   const [user, setUser] = useState(null);
   const [tokenStorage, setTokenStorage] = useState(null);
-  const [task, setTask] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const { navigation } = props;
 
   const getTask = async () => {
     try {
       const request = await axios.get(
         "https://api-nodejs-todolist.herokuapp.com/task",
-        {},
         {
           headers: { Authorization: "Bearer " + tokenStorage },
         }
       );
-      console.log(request.data);
+      setTasks(request.data);
     } catch (error) {
-      showMessage({
-        message: "Ocurrio un error inesperado",
-        type: "warning",
-        position: "bottom",
-      });
+      reactotron.log(error);
     }
   };
 
   const getToken = async () => {
     const token = await AsyncStorage.getItem("token");
     const name = await AsyncStorage.getItem("name");
+    const tareas = await getTask();
+    console.log(tareas);
     setUser(name);
     setTokenStorage(token);
+    setTasks(tareas.data);
+
     if (!token) {
       navigation.navigate("Register");
     }
-    return { token, name };
+    return { token, name, tareas };
   };
 
   useEffect(() => {
     getToken();
-    getTask();
   }, []);
+
   const goToPage = () => {
     navigation.navigate("createNewTask");
   };
@@ -79,6 +85,11 @@ export default function Home(props) {
     }
   };
 
+  const renderItem = ({ item }) => <Item title={item.description} />;
+
+  // data={tasks}
+  //         keyExtractor={x => String(x._id)}
+  //         renderItem={({item}) => <Text>{item.description}</Text>}
   return (
     <View style={{ backgroundColor: "#EDEDEE" }}>
       <View style={styles.container2}>
@@ -88,6 +99,11 @@ export default function Home(props) {
         />
         <Text style={styles.saludo}>Welcome {user}</Text>
         <Text style={styles.text}>{t("home.listTask")}</Text>
+        <FlatList
+          data={tasks}
+          renderItem={renderItem}
+          keyExtractor={(item) => item._id}
+        />
         <ButtonReu text={t("home.buttonNewTask")} function={goToPage} />
         <ButtonReu text={t("home.buttonLogout")} function={logout} />
       </View>
