@@ -7,6 +7,7 @@ import { useState } from "react";
 import axios from "axios";
 import { showMessage } from "react-native-flash-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import t from "../../services/translate";
 
 export default function Register(props) {
   const { navigation } = props;
@@ -89,12 +90,12 @@ export default function Register(props) {
             style={styles.image}
           />
           <View style={styles.containerText}>
-            <Text style={styles.welcome}>Welcome OnBoard!</Text>
-            <Text>Let's help you meet up your tasks</Text>
+            <Text style={styles.welcome}>{t("register.welcome")}</Text>
+            <Text>{t("register.subtitle")}</Text>
           </View>
           <View style={styles.containerInput}>
             <Input
-              placeholder="Enter your full name"
+              placeholder={t("register.inputName")}
               function={validateNam}
               onFocus={() => {
                 showMessage({
@@ -107,7 +108,7 @@ export default function Register(props) {
               }}
             />
             <Input
-              placeholder="Enter your e-mail"
+              placeholder={t("register.inputEmail")}
               function={validateMail}
               onFocus={() => {
                 showMessage({
@@ -120,7 +121,7 @@ export default function Register(props) {
               }}
             />
             <Input
-              placeholder="Enter password"
+              placeholder={t("register.inputPassword")}
               function={handlePassword}
               secureTextEntry={true}
               onFocus={() => {
@@ -134,7 +135,7 @@ export default function Register(props) {
               }}
             />
             <Input
-              placeholder="Confirm password"
+              placeholder={t("register.inputConfirmPassword")}
               function={handleConfirmPassword}
               secureTextEntry={true}
               onFocus={() => {
@@ -150,13 +151,13 @@ export default function Register(props) {
           </View>
           <ButtonReu text="Register" function={submit} />
           <Text style={styles.text}>
-            Already have an account?
+            {t("register.buttonRegister")}
             <Text
               style={styles.textLogin}
               onPress={() => navigation.navigate("Login")}
             >
               {" "}
-              Sign In
+              {t("register.navigateSignIn")}
             </Text>{" "}
           </Text>
         </View>

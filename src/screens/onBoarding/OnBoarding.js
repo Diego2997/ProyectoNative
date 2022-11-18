@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { styles } from "./styles";
+import t from "../../services/translate";
 
 export default function OnBoarding(props) {
   const { navigation } = props;
@@ -20,16 +21,13 @@ export default function OnBoarding(props) {
             source={require("../../assets/onboarding.png")}
             style={styles.imageLogin}
           />
-          <Text style={styles.welcome}>Gets things done with TODo</Text>
+          <Text style={styles.welcome}>{t("onboarding.welcome")}</Text>
           <View style={{ width: "70%" }}>
-            <Text style={styles.text}>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum
-              eius architecto maiores nisi ab quidem iure? Facere excepturi
-            </Text>
+            <Text style={styles.text}>{t("onboarding.lorem")}</Text>
           </View>
         </View>
         <TouchableOpacity style={styles.button} onPress={goToPage}>
-          <Text style={styles.textButton}>Get Started</Text>
+          <Text style={styles.textButton}>{t("onboarding.getStarted")}</Text>
         </TouchableOpacity>
       </View>
     </View>

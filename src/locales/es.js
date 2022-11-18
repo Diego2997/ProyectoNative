@@ -10,10 +10,10 @@ export default {
   register: {
     welcome: "Welcome OnBoard!",
     subtitle: "Let's help you meet up your tasks",
-    inputName: "",
-    inputEmail: "",
-    inputPassword: "",
-    inputConfirmPassword: "",
+    inputName: "Enter your full name",
+    inputEmail: "Enter your e-mail",
+    inputPassword: "Enter password",
+    inputConfirmPassword: "Confirm password",
     buttonRegister: "Already have an account?",
     navigateSignIn: "Sign In",
   },
@@ -29,6 +29,7 @@ export default {
     getStarted: "Get Started",
   },
   createTask: {
+    inputAddTask: "Add Task",
     buttonCreateTask: "Create New Task",
     buttonReturn: "Return",
     text: "Completed",

@@ -6,11 +6,32 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import axios from "axios";
 import { styles } from "./styles";
+import t from "../../services/translate";
 
 export default function Home(props) {
   const [user, setUser] = useState(null);
   const [tokenStorage, setTokenStorage] = useState(null);
+  const [task, setTask] = useState([]);
   const { navigation } = props;
+
+  const getTask = async () => {
+    try {
+      const request = await axios.get(
+        "https://api-nodejs-todolist.herokuapp.com/task",
+        {},
+        {
+          headers: { Authorization: "Bearer " + tokenStorage },
+        }
+      );
+      console.log(request.data);
+    } catch (error) {
+      showMessage({
+        message: "Ocurrio un error inesperado",
+        type: "warning",
+        position: "bottom",
+      });
+    }
+  };
 
   const getToken = async () => {
     const token = await AsyncStorage.getItem("token");
@@ -25,6 +46,7 @@ export default function Home(props) {
 
   useEffect(() => {
     getToken();
+    getTask();
   }, []);
   const goToPage = () => {
     navigation.navigate("createNewTask");
@@ -64,10 +86,10 @@ export default function Home(props) {
           style={styles.image}
           source={require("../../assets/elipse.png")}
         />
-        <Text style={styles.saludo}>Welcome: {user}</Text>
-        <Text style={styles.text}>Lista de tareas</Text>
-        <ButtonReu text="Create New Task" function={goToPage} />
-        <ButtonReu text="Logout" function={logout} />
+        <Text style={styles.saludo}>Welcome {user}</Text>
+        <Text style={styles.text}>{t("home.listTask")}</Text>
+        <ButtonReu text={t("home.buttonNewTask")} function={goToPage} />
+        <ButtonReu text={t("home.buttonLogout")} function={logout} />
       </View>
     </View>
   );

@@ -9,6 +9,9 @@ import Home from "./src/screens/home/Home";
 import FlashMessage from "react-native-flash-message";
 import OnBoarding from "./src/screens/onBoarding/OnBoarding";
 import createNewTask from "./src/screens/createNewTask/createNewTask";
+if (__DEV__) {
+  import("./ReactotronConfig").then(() => console.log("Reactotron Configured"));
+}
 
 const Stack = createStackNavigator();
 

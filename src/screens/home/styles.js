@@ -18,10 +18,12 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "800",
     fontSize: 20,
+    marginTop: 20,
   },
   saludo: {
     textAlign: "center",
     fontWeight: "800",
     fontSize: 30,
+    textTransform: "capitalize",
   },
 });

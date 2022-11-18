@@ -14,4 +14,11 @@ export const styles = StyleSheet.create({
     marginVertical: -90,
     position: "relative",
   },
+  containerInput: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 120,
+    marginBottom: 170,
+  },
 });

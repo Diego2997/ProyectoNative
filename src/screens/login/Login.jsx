@@ -12,6 +12,7 @@ import ButtonReu from "../../components/button/ButtonReu";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import t from "../../services/translate";
 
 import axios from "axios";
 
@@ -71,7 +72,7 @@ export default function Login(props) {
           style={styles.image}
         />
         <View style={styles.containerText}>
-          <Text style={styles.welcome}>Welcome Back!</Text>
+          <Text style={styles.welcome}>{t("login.welcome")}</Text>
           <Image
             source={require("../../assets/login.png")}
             style={styles.imageLogin}
@@ -80,12 +81,12 @@ export default function Login(props) {
         <View style={styles.containerInput}>
           <Input
             value={email}
-            placeholder="Enter your e-mail"
+            placeholder={t("login.inputEmail")}
             function={handleEmail}
           />
           <Input
             value={password}
-            placeholder="Enter password"
+            placeholder={t("login.inputPassword")}
             function={handlePassword}
             secureTextEntry={true}
           />
@@ -101,7 +102,9 @@ export default function Login(props) {
               });
             }}
           >
-            <Text style={styles.textLogin}>Forget Password</Text>
+            <Text style={styles.textLogin}>
+              {t("login.textForgetPassword")}
+            </Text>
           </TouchableOpacity>
         </View>
         {isloading ? (
@@ -110,13 +113,13 @@ export default function Login(props) {
           <ButtonReu text="Log In" function={submit} />
         )}
         <Text style={styles.text}>
-          Don't have an account?
+          {t("login.buttonLogin")}
           <Text
             style={styles.textLogin}
             onPress={() => navigation.navigate("Register")}
           >
             {" "}
-            Sign Up
+            {t("login.navigateSignUp")}
           </Text>{" "}
         </Text>
       </View>
