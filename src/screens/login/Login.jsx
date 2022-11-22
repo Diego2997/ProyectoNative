@@ -11,56 +11,57 @@ import { styles } from "./styles";
 import ButtonReu from "../../components/button/ButtonReu";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import t from "../../services/translate";
-
-import axios from "axios";
+import { logIn } from "../../services/api";
 
 export default function Login(props) {
   const { navigation } = props;
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("diego@admin.com");
+  const [password, setPassword] = useState("diego1234");
   const [isloading, setIsloading] = useState(false);
 
-  const handleEmail = (text) => {
-    setEmail(text);
-  };
-  const handlePassword = (text) => {
-    setPassword(text);
-  };
+  // const submit = async () => {
+  //   try {
+  //     setIsloading(true);
+  //     const request = await axios.post(
+  //       "https://api-nodejs-todolist.herokuapp.com/user/login",
+  //       {
+  //         email,
+  //         password,
+  //       }
+  //     );
+  //     const { name } = request.data.user;
+  //     const { token } = request.data;
+  //     await AsyncStorage.setItem("name", name);
+  //     await AsyncStorage.setItem("token", token);
+  //     showMessage({
+  //       message: "Te has logueado correctamente",
+  //       type: "info",
+  //       duration: 2500,
+  //       backgroundColor: "#50C2C9",
+  //       position: "bottom",
+  //     });
+  //     navigation.navigate("Home");
+  //   } catch (error) {
+  //     showMessage({
+  //       message: "Hubo un error al loguearse",
+  //       type: "warning",
+  //      duration: 2500,
+  //       backgroundColor: "#50C2C9",
+  //       position: "bottom" ,
+  //     });
+  //   }
+  //   setIsloading(false);
+  // };
 
-  const submit = async () => {
-    try {
-      setIsloading(true);
-      const request = await axios.post(
-        "https://api-nodejs-todolist.herokuapp.com/user/login",
-        {
-          email,
-          password,
-        }
-      );
-      const { name } = request.data.user;
-      const { token } = request.data;
-      await AsyncStorage.setItem("name", name);
-      await AsyncStorage.setItem("token", token);
-      showMessage({
-        message: "Te has logueado correctamente",
-        type: "info",
-        duration: 2500,
-        backgroundColor: "#50C2C9",
-        position: "bottom",
-      });
-      navigation.navigate("Home");
-    } catch (error) {
-      showMessage({
-        message: "Hubo un error al loguearse",
-        type: "warning",
-        duration: 2500,
-        backgroundColor: "#50C2C9",
-        position: "bottom",
-      });
-    }
+  const handleLogIn = () => {
+    setIsloading(true);
+    logIn({
+      email,
+      password,
+      navigation,
+    });
     setIsloading(false);
   };
 
@@ -82,12 +83,12 @@ export default function Login(props) {
           <Input
             value={email}
             placeholder={t("login.inputEmail")}
-            function={handleEmail}
+            onChangeText={setEmail}
           />
           <Input
             value={password}
             placeholder={t("login.inputPassword")}
-            function={handlePassword}
+            onChangeText={setPassword}
             secureTextEntry={true}
           />
           <TouchableOpacity
@@ -110,7 +111,7 @@ export default function Login(props) {
         {isloading ? (
           <ActivityIndicator size="large" color="#50C2C9" />
         ) : (
-          <ButtonReu text="Log In" function={submit} />
+          <ButtonReu text="Log In" function={handleLogIn} />
         )}
         <Text style={styles.text}>
           {t("login.buttonLogin")}

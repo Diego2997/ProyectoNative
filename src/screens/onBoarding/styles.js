@@ -46,8 +46,8 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 100,
     overflow: "hidden",
-    marginLeft: "auto",
-    marginRight: "auto",
+    fontSize: 15,
+    fontWeight: "400",
   },
 
   imageLogin: {

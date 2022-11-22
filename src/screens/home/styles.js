@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   },
   image: {
     marginHorizontal: -120,
-    marginVertical: -90,
+    marginVertical: -100,
     position: "relative",
   },
   text: {
@@ -25,5 +25,21 @@ export const styles = StyleSheet.create({
     fontWeight: "800",
     fontSize: 30,
     textTransform: "capitalize",
+  },
+  itemContainer: {
+    marginTop: 30,
+    marginHorizontal: 20,
+    borderRadius: 30,
+    fontSize: 30,
+    height: 60,
+    backgroundColor: "green",
+    padding: 13,
+    width: "90%",
+  },
+  textItem: {
+    color: "white",
+    fontSize: 20,
+    textAlign: "center",
+    fontWeight: "600",
   },
 });
