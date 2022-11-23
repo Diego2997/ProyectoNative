@@ -5,7 +5,7 @@ const API = "https://api-nodejs-todolist.herokuapp.com";
 const LOGIN = API + "/user/login";
 const LOGOUT = API + "/user/logout";
 const REGISTER = API + "/user/register";
-// const apiMe = API + "/user/me";
+const APIME = API + "/user/me";
 const TASK = API + "/task";
 
 export const logIn = ({ email, password, navigation }) => {
@@ -129,7 +129,7 @@ export const SignUp = ({ name, email, password, confirm, navigation }) => {
 };
 
 export const tokenLogIn = ({ navigation, tokenStorage }) => {
-  fetch(apiMe, {
+  fetch(APIME, {
     method: "GET",
     headers: {
       Authorization: "Bearer " + tokenStorage,

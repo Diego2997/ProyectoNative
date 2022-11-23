@@ -21,40 +21,6 @@ export default function Login(props) {
   const [password, setPassword] = useState("diego1234");
   const [isloading, setIsloading] = useState(false);
 
-  // const submit = async () => {
-  //   try {
-  //     setIsloading(true);
-  //     const request = await axios.post(
-  //       "https://api-nodejs-todolist.herokuapp.com/user/login",
-  //       {
-  //         email,
-  //         password,
-  //       }
-  //     );
-  //     const { name } = request.data.user;
-  //     const { token } = request.data;
-  //     await AsyncStorage.setItem("name", name);
-  //     await AsyncStorage.setItem("token", token);
-  //     showMessage({
-  //       message: "Te has logueado correctamente",
-  //       type: "info",
-  //       duration: 2500,
-  //       backgroundColor: "#50C2C9",
-  //       position: "bottom",
-  //     });
-  //     navigation.navigate("Home");
-  //   } catch (error) {
-  //     showMessage({
-  //       message: "Hubo un error al loguearse",
-  //       type: "warning",
-  //      duration: 2500,
-  //       backgroundColor: "#50C2C9",
-  //       position: "bottom" ,
-  //     });
-  //   }
-  //   setIsloading(false);
-  // };
-
   const handleLogIn = () => {
     setIsloading(true);
     logIn({
