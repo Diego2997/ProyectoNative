@@ -29,7 +29,7 @@ export const logIn = ({ email, password, navigation }) => {
     .catch((error) =>
       showMessage({
         type: "warning",
-        message: "Hubo un error al loguearse" + error,
+        message: "There was an error logging in" + error,
         duration: 2500,
         backgroundColor: "#50C2C9",
         position: "bottom",
