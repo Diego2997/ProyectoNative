@@ -21,15 +21,18 @@ export const logIn = ({ email, password, navigation }) => {
   })
     .then((response) => response.json())
     .then(async (data) => {
-      console.log(data.token);
       console.log("TOKEN OBTTENIDO: " + data.token);
       await AsyncStorage.setItem("token", data.token);
-      navigation.navigate("Home");
+      if (!data.token) {
+        return;
+      } else {
+        navigation.replace("Home");
+      }
     })
     .catch((error) =>
       showMessage({
         type: "warning",
-        message: "There was an error logging in" + error,
+        message: "There was an error logging in",
         duration: 2500,
         backgroundColor: "#50C2C9",
         position: "bottom",
@@ -53,7 +56,7 @@ export const logOut = ({ token, navigation }) => {
         position: "bottom",
         backgroundColor: "#50C2C9",
       });
-      navigation.navigate("Login");
+      navigation.replace("Login");
       // tokenStorage = null;
     })
     .catch((error) =>
@@ -123,7 +126,7 @@ export const SignUp = ({ name, email, password, confirm, navigation }) => {
           message: "Welcome!",
           type: "info",
         });
-        navigation.navigate("Home");
+        navigation.replace("Home");
       });
   }
 };
@@ -173,4 +176,14 @@ export const addTask = ({ description, completed, token }) => {
       }),
     });
   }
+};
+
+export const deleteTask = (_id, token) => {
+  fetch(`${TASK}/${_id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+    },
+  });
 };

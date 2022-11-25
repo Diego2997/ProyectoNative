@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 const Stack = createStackNavigator();
 
 function App() {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(true);
 
   useEffect(() => {
     const getToken = async () => {
@@ -34,38 +34,34 @@ function App() {
   return (
     <NavigationContainer>
       <StatusBar style="default" />
-      {token ? (
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="createNewTask"
-            component={createNewTask}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      ) : (
-        <Stack.Navigator initialRouteName="OnBoarding">
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="OnBoarding"
-            component={OnBoarding}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Register"
-            component={Register}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      )}
+      <Stack.Navigator initialRouteName="OnBoarding">
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OnBoarding"
+          component={OnBoarding}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="createNewTask"
+          component={createNewTask}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+
       <FlashMessage position="top" />
     </NavigationContainer>
   );

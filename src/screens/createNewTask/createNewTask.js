@@ -45,12 +45,14 @@ export default function createNewTask(props) {
             onValueChange={toggleSwitch}
             value={completed}
           />
+
           <Text>{t("createTask.text")}</Text>
         </View>
         <ButtonReu
           function={handleCreateTask}
           text={t("createTask.buttonCreateTask")}
         />
+
         <ButtonReu
           function={handleReturn}
           text={t("createTask.buttonReturn")}

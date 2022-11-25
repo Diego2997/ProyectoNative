@@ -42,4 +42,15 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "600",
   },
+  quickActions: {
+    justifyContent: "center",
+    alignItems: "flex-end",
+    marginTop: 50,
+    marginRight: 17,
+  },
+  delete: {
+    color: "red",
+    fontWeight: "800",
+    fontSize: 13,
+  },
 });
