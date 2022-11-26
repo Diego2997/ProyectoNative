@@ -9,6 +9,7 @@ import Home from "./src/screens/home/Home";
 import FlashMessage from "react-native-flash-message";
 import OnBoarding from "./src/screens/onBoarding/OnBoarding";
 import createNewTask from "./src/screens/createNewTask/createNewTask";
+import EditTask from "./src/screens/editTask/EditTask";
 if (__DEV__) {
   import("./ReactotronConfig").then(() => console.log("Reactotron Configured"));
 }
@@ -58,6 +59,11 @@ function App() {
         <Stack.Screen
           name="createNewTask"
           component={createNewTask}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="EditTask"
+          component={EditTask}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -34,4 +34,8 @@ export default {
     buttonReturn: "Return",
     text: "Completed",
   },
+  editTask: {
+    inputEdit: "EditTask",
+    buttonReturn: "Return",
+  },
 };

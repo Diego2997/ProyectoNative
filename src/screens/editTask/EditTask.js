@@ -1,36 +1,58 @@
 import { View, Image, Switch, Text } from "react-native";
 import React from "react";
 import ButtonReu from "../../components/button/ButtonReu";
-import { styles } from "./styles";
+import { styles } from "../createNewTask/styles";
 import Input from "../../components/input/Input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import t from "../../services/translate";
+import { GetTaskID, updateTask } from "../../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { addTask } from "../../services/api";
 
-export default function createNewTask(props) {
+export default function EditTask(props) {
   const { navigation } = props;
-  const [task, setTask] = useState();
+  const [editableTask, setEditableTask] = useState("");
   const [completed, setCompleted] = useState(false);
+  const [idTask, setIdTask] = useState("");
   const toggleSwitch = () => setCompleted((previousState) => !previousState);
 
-  const handleCreateTask = async () => {
+  const handleUpdate = async () => {
     try {
       const token = await AsyncStorage.getItem("token");
-      addTask({
-        description: task,
-        token,
+      updateTask({
+        _id: idTask,
+        description: editableTask,
         completed: completed,
+        token: token,
       });
-      setTask(null);
-      navigation.goBack();
+      navigation.navigate("Home");
     } catch (error) {
-      console.log("hubo un error" + error);
+      console.log(error);
     }
   };
+
   const handleReturn = () => {
-    navigation.goBack();
+    navigation.navigate("Home");
   };
+
+  const getTaskEditable = async () => {
+    try {
+      const idTarea = await AsyncStorage.getItem("idTarea");
+      const token = await AsyncStorage.getItem("token");
+      GetTaskID({
+        _id: idTarea,
+        token,
+        setEditableTask: setEditableTask,
+        setCompleted: setCompleted,
+        setIdTask: setIdTask,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getTaskEditable();
+  }, []);
 
   return (
     <View style={{ backgroundColor: "#EDEDEE" }}>
@@ -41,7 +63,8 @@ export default function createNewTask(props) {
         />
         <View style={styles.containerInput}>
           <Input
-            onChangeText={setTask}
+            onChangeText={setEditableTask}
+            text={editableTask}
             placeholder={t("createTask.inputAddTask")}
           />
           <Switch
@@ -53,15 +76,9 @@ export default function createNewTask(props) {
 
           <Text>{t("createTask.text")}</Text>
         </View>
-        <ButtonReu
-          function={handleCreateTask}
-          text={t("createTask.buttonCreateTask")}
-        />
+        <ButtonReu function={handleUpdate} text={t("editTask.inputEdit")} />
 
-        <ButtonReu
-          function={handleReturn}
-          text={t("createTask.buttonReturn")}
-        />
+        <ButtonReu function={handleReturn} text={t("editTask.buttonReturn")} />
       </View>
     </View>
   );

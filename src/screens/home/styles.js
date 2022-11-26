@@ -32,9 +32,9 @@ export const styles = StyleSheet.create({
     borderRadius: 30,
     fontSize: 30,
     height: 60,
-    backgroundColor: "green",
     padding: 13,
     width: "90%",
+    backgroundColor: "green",
   },
   textItem: {
     color: "white",
@@ -51,6 +51,6 @@ export const styles = StyleSheet.create({
   delete: {
     color: "red",
     fontWeight: "800",
-    fontSize: 13,
+    fontSize: 15,
   },
 });

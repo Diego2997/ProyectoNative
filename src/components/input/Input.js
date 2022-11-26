@@ -7,6 +7,7 @@ export default function Input({
   onChangeText,
   onFocus,
   secureTextEntry,
+  text,
 }) {
   return (
     <TextInput
@@ -15,6 +16,7 @@ export default function Input({
       onChangeText={(value) => onChangeText(value)}
       onFocus={onFocus}
       secureTextEntry={secureTextEntry ? true : null}
+      value={text}
     />
   );
 }

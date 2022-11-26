@@ -175,6 +175,13 @@ export const addTask = ({ description, completed, token }) => {
         completed: completed,
       }),
     });
+    showMessage({
+      message: "Task created successfully",
+      type: "info",
+      duration: 2500,
+      position: "bottom",
+      backgroundColor: "#50C2C9",
+    });
   }
 };
 
@@ -186,4 +193,57 @@ export const deleteTask = (_id, token) => {
       "Content-Type": "application/json",
     },
   });
+};
+
+export const updateTask = ({ _id, description, completed, token }) => {
+  fetch(TASK + "/" + _id, {
+    method: "PUT",
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      description: description,
+      completed: completed,
+    }),
+  })
+    .then(() => {
+      console.log("task updated successfully");
+      showMessage({
+        message: "Task updated successfully",
+        type: "info",
+        duration: 2500,
+        position: "bottom",
+        backgroundColor: "#50C2C9",
+      });
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+};
+
+export const GetTaskID = ({
+  _id,
+  token,
+  setEditableTask,
+  setCompleted,
+  setIdTask,
+}) => {
+  fetch(`${TASK}/${_id}`, {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then(async (data) => {
+      // console.log("Data traida");
+      console.log(data);
+      // console.log(data.data);
+      setEditableTask(data.data.description);
+      setCompleted(data.data.completed);
+      setIdTask(data.data._id);
+    })
+    .catch((error) => console.log(error));
 };

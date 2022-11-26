@@ -24,6 +24,7 @@ const wait = (timeout) => {
 export default function Home(props) {
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [edit, setEdit] = useState("");
   const { navigation } = props;
 
   const getToken = async () => {
@@ -50,14 +51,28 @@ export default function Home(props) {
     logOut({ token, navigation });
   };
 
-  const Item = ({ title }) => (
-    <View style={styles.itemContainer}>
-      <TouchableOpacity>
+  const Item = ({ title, onPress, completed }) => (
+    <View
+      style={
+        completed
+          ? [styles.itemContainer, { backgroundColor: "green" }]
+          : [styles.itemContainer, { backgroundColor: "red" }]
+      }
+    >
+      <TouchableOpacity onPress={onPress}>
         <Text style={styles.textItem}>{title}</Text>
       </TouchableOpacity>
     </View>
   );
-  const renderItem = ({ item }) => <Item title={item.description} />;
+  const renderItem = ({ item }) => (
+    <Item
+      title={item.description}
+      onPress={() => {
+        handlePressEdit(item._id);
+      }}
+      completed={item.completed}
+    />
+  );
   const createTwoButtonAlert = (_id, description) =>
     Alert.alert(
       "Esta seguro que desea eliminar esta tarea?",
@@ -99,6 +114,16 @@ export default function Home(props) {
     });
   }, []);
 
+  const handlePressEdit = async (idSelected) => {
+    try {
+      console.log(idSelected);
+      await AsyncStorage.setItem("idTarea", idSelected);
+      navigation.replace("EditTask");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={{ backgroundColor: "#EDEDEE" }}>
       <View style={styles.container2}>
@@ -124,7 +149,6 @@ export default function Home(props) {
             onRefresh={onRefresh}
           />
         )}
-
         <ButtonReu text={t("home.buttonNewTask")} function={goToPage} />
         <ButtonReu text={t("home.buttonLogout")} function={logout} />
       </View>
