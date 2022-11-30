@@ -16,29 +16,33 @@ import { styles } from "./styles";
 import t from "../../services/translate";
 import { deleteTask, getAllTasks, logOut } from "../../services/api";
 import SwipeableFlatList from "react-native-swipeable-list";
+import { useSelector, useDispatch } from "react-redux";
+import { getTask } from "../../redux/task/actions";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
 export default function Home(props) {
-  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [edit, setEdit] = useState("");
   const { navigation } = props;
 
-  const getToken = async () => {
-    try {
-      const token = await AsyncStorage.getItem("token");
-      getAllTasks({ token, setTasks });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const dispactch = useDispatch();
+  const task = useSelector((state) => state.task.task);
+
+  // const getToken = async () => {
+  //   try {
+  //     const token = await AsyncStorage.getItem("token");
+  //     getAllTasks({ token, setTasks });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     navigation.addListener("focus", async () => {
-      getToken();
+      dispactch(getTask());
     });
   }, [navigation]);
 
@@ -137,7 +141,7 @@ export default function Home(props) {
           <ActivityIndicator size="large" />
         ) : (
           <SwipeableFlatList
-            data={tasks}
+            data={task}
             renderItem={renderItem}
             keyExtractor={(item) => item._id}
             renderQuickActions={(item) => QuickActions(item)}

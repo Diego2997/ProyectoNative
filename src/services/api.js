@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 
-const API = "https://api-nodejs-todolist.herokuapp.com";
+const API = "http://localhost:3001/";
 const LOGIN = API + "/user/login";
 const LOGOUT = API + "/user/logout";
 const REGISTER = API + "/user/register";
@@ -22,22 +22,14 @@ export const logIn = ({ email, password, navigation }) => {
     .then((response) => response.json())
     .then(async (data) => {
       console.log("TOKEN OBTTENIDO: " + data.token);
-      await AsyncStorage.setItem("token", data.token);
+      // await AsyncStorage.setItem("token", data.token);
       if (!data.token) {
         return;
       } else {
         navigation.replace("Home");
       }
     })
-    .catch((error) =>
-      showMessage({
-        type: "warning",
-        message: "There was an error logging in",
-        duration: 2500,
-        backgroundColor: "#50C2C9",
-        position: "bottom",
-      })
-    );
+    .catch((error) => console.log(error + "este es el error"));
 };
 
 export const logOut = ({ token, navigation }) => {
@@ -127,7 +119,8 @@ export const SignUp = ({ name, email, password, confirm, navigation }) => {
           type: "info",
         });
         navigation.replace("Home");
-      });
+      })
+      .catch((error) => console.log(error + "este es el error"));
   }
 };
 
@@ -142,17 +135,13 @@ export const tokenLogIn = ({ navigation, tokenStorage }) => {
   });
 };
 
-export const getAllTasks = ({ token, setTasks }) => {
+export const getAllTasks = ({ token }) => {
   fetch(TASK, {
     method: "GET",
     headers: {
       Authorization: "Bearer " + token,
     },
-  })
-    .then((response) => response.json())
-    .then(async (data) => {
-      setTasks(data.data);
-    });
+  }).then((response) => response.json());
 };
 
 export const addTask = ({ description, completed, token }) => {
