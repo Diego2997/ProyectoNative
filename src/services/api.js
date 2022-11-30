@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 
-const API = "https://api-nodejs-todolist.herokuapp.com";
+const API = "https://http-nodejs-production-9473.up.railway.app";
 const LOGIN = API + "/user/login";
 const LOGOUT = API + "/user/logout";
 const REGISTER = API + "/user/register";

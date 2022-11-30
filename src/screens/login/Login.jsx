@@ -10,7 +10,7 @@ import Input from "../../components/input/Input";
 import { styles } from "./styles";
 import ButtonReu from "../../components/button/ButtonReu";
 import FlashMessage, { showMessage } from "react-native-flash-message";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import t from "../../services/translate";
 import { logIn } from "../../services/api";
 
@@ -30,6 +30,11 @@ export default function Login(props) {
     });
     setIsloading(false);
   };
+
+  useEffect(() => {
+    setEmail("Diego@gmail.com");
+    setPassword("Diego1234");
+  }, []);
 
   return (
     <View style={{ backgroundColor: "#EDEDEE" }}>
