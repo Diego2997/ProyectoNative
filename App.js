@@ -13,25 +13,10 @@ import EditTask from "./src/screens/editTask/EditTask";
 if (__DEV__) {
   import("./ReactotronConfig").then(() => console.log("Reactotron Configured"));
 }
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
 
 const Stack = createStackNavigator();
 
 function App() {
-  const [token, setToken] = useState(true);
-
-  useEffect(() => {
-    const getToken = async () => {
-      const token = await AsyncStorage.getItem("token");
-      if (!token) {
-        setToken(false);
-      } else {
-        setToken(true);
-      }
-    };
-    getToken();
-  }, []);
   return (
     <NavigationContainer>
       <StatusBar style="default" />

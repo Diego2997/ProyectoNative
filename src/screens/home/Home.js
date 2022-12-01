@@ -16,6 +16,7 @@ import { styles } from "./styles";
 import t from "../../services/translate";
 import { deleteTask, getAllTasks, logOut } from "../../services/api";
 import SwipeableFlatList from "react-native-swipeable-list";
+import { Fontisto } from "@expo/vector-icons";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -24,12 +25,14 @@ const wait = (timeout) => {
 export default function Home(props) {
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [edit, setEdit] = useState("");
+  const [name, setName] = useState("");
   const { navigation } = props;
 
   const getToken = async () => {
     try {
       const token = await AsyncStorage.getItem("token");
+      const name = await AsyncStorage.getItem("user");
+      setName(name);
       getAllTasks({ token, setTasks });
     } catch (error) {
       console.log(error);
@@ -99,7 +102,9 @@ export default function Home(props) {
     return (
       <View style={styles.quickActions}>
         <Pressable onPress={() => createTwoButtonAlert(_id, description)}>
-          <Text style={styles.delete}>Delete</Text>
+          <Text style={styles.delete}>
+            <Fontisto name="trash" size={24} color="red" />
+          </Text>
         </Pressable>
       </View>
     );
@@ -114,16 +119,6 @@ export default function Home(props) {
     });
   }, []);
 
-  const handlePressEdit = async (idSelected) => {
-    try {
-      console.log(idSelected);
-      await AsyncStorage.setItem("idTarea", idSelected);
-      navigation.replace("EditTask");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <View style={{ backgroundColor: "#EDEDEE" }}>
       <View style={styles.container2}>
@@ -131,7 +126,7 @@ export default function Home(props) {
           style={styles.image}
           source={require("../../assets/elipse.png")}
         />
-        <Text style={styles.saludo}>Welcome</Text>
+        <Text style={styles.saludo}>Welcome {name}</Text>
         <Text style={styles.text}>{t("home.listTask")}</Text>
         {isLoading ? (
           <ActivityIndicator size="large" />

@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-end",
     marginTop: 50,
-    marginRight: 17,
+    marginRight: 19,
   },
   delete: {
     color: "red",

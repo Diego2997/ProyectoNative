@@ -23,6 +23,8 @@ export const logIn = ({ email, password, navigation }) => {
     .then(async (data) => {
       console.log("TOKEN OBTTENIDO: " + data.token);
       await AsyncStorage.setItem("token", data.token);
+      console.log(data.user.name);
+      await AsyncStorage.setItem("user", data.user.name);
       if (!data.token) {
         return;
       } else {
