@@ -54,6 +54,11 @@ export default function Home(props) {
     logOut({ token, navigation });
   };
 
+  const handlePressEdit = async (idSelected) => {
+    await AsyncStorage.setItem("idTarea", idSelected);
+    navigation.navigate("EditTask");
+  };
+
   const Item = ({ title, onPress, completed }) => (
     <View
       style={
